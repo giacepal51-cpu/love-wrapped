@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Love Wrapped 2025 💚</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* Todos los estilos anteriores se mantienen igual */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #0b141a 0%, #111827 50%, #1e293b 100%);
+  color: white;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(37, 211, 102, 0.1);
+}
+
+.container {
+  max-width: 420px;
+  margin: auto;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+  animation: slideDown 0.8s ease-out;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(45deg, #25d366, #00ff88);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 10px;
+  text-shadow: 0 5px 15px rgba(37, 211, 102, 0.2);
+}
+
+.subtitle {
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+.card {
+  background: rgba(31, 44, 52, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  padding: 28px;
+  margin-bottom: 25px;
+  animation: cardAppear 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    0 1px 2px rgba(255, 255, 255, 0.05);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px) rotateX(2deg);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(37, 211, 102, 0.1);
+}
+
+.question {
+  text-align: center;
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+  line-height: 1.5;
+  color: #e2e8f0;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.answer {
+  text-align: center;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 18px;
+  margin: 20px 0;
+  animation: textReveal 1s ease;
+  border-left: 3px solid #25d366;
+}
+
+button, .file-input-wrapper {
+  width: 100%;
+  padding: 16px;
+  border-radius: 16px;
+  border: none;
+  margin-top: 16px;
+  font-size: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  font-weight: 600;
+}
+
+button {
+  background: linear-gradient(135deg, #25d366 0%, #1da851 100%);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button.secondary {
+  background: rgba(42, 57, 66, 0.8);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+button.secondary:hover {
+  background: rgba(42, 57, 66, 1);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.file-input-wrapper {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px dashed rgba(255, 255, 255, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-input-wrapper:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #25d366;
+}
+
+.file-input-wrapper input {
+  display: none;
+}
+
+.file-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: #94a3b8;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.progress {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #25d366, #00ff88);
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(30px) rotateX(-10deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+@keyframes textReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes shine {
+  0% { background-position: -100px; }
+  100% { background-position: 200px; }
+}
+
+.emoji-float {
+  font-size: 2rem;
+  animation: float 3s ease-in-out infinite;
+  display: inline-block;
+}
+
+.emoji-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.result-graph {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 25px 0;
+  gap: 15px;
+}
+
+.user-bar {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+
+.bar-container {
+  height: 150px;
+  width: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  margin: 0 auto 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-radius: 15px;
+  transition: height 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.bar.winner {
+  background: linear-gradient(to top, #25d366, #00ff88);
+  position: relative;
+  overflow: hidden;
+}
+
+.bar.winner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shine 2s infinite;
+}
+
+.bar.loser {
+  background: linear-gradient(to top, #ff4081, #ff79a9);
+}
+
+.winner-badge {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #25d366;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  animation: pulse 1.5s infinite;
+}
+
+.intense-day {
+  background: rgba(255, 64, 129, 0.1);
+  border-radius: 15px;
+  padding: 15px;
+  margin: 20px 0;
+  border: 1px solid rgba(255, 64, 129, 0.2);
+}
+
+.intense-day-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  color: #ff4081;
+  font-weight: bold;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.stat-item {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #25d366;
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+  
+  .card {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.music-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.year-filter {
+  background: rgba(37, 211, 102, 0.1);
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  margin: 10px 0;
+  font-size: 0.9rem;
+  border: 1px solid rgba(37, 211, 102, 0.2);
+}
+
+.year-badge {
+  background: linear-gradient(45deg, #25d366, #00ff88);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.help-text {
+  background: rgba(255, 193, 7, 0.1);
+  border-radius: 10px;
+  padding: 12px;
+  margin: 15px 0;
+  font-size: 0.85rem;
+  border: 1px solid rgba(255, 193, 7, 0.2);
+  color: #ffd54f;
+}
+
+.help-text a {
+  color: #25d366;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.help-text a:hover {
+  text-decoration: underline;
+}
+
+/* Debug info */
+.debug-info {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 0.8rem;
+  font-family: monospace;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.debug-info pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+</style>
+</head>
+
+<body>
+<div class="particles" id="particles"></div>
+
+<div class="container">
+  <div class="header">
+    <h1 class="emoji-float">💚 Love Wrapped 2025</h1>
+    <p class="subtitle">Tu resumen de amor este año</p>
+    <div class="year-filter">
+      Solo se analizarán los mensajes del <span class="year-badge">2025</span>
+    </div>
+  </div>
+
+  <div class="progress-bar">
+    <div class="progress" id="progress"></div>
+  </div>
+
+  <audio id="music" loop>
+    <source src="https://cdn.pixabay.com/audio/2023/03/28/audio_3b1bb0b6ef.mp3">
+  </audio>
+
+  <div id="content"></div>
+</div>
+
+<script>
+let messages = [], index = 0;
+let USER1 = "", USER2 = "";
+let winner = null;
+let intenseDay = null;
+let totalMessages2025 = 0;
+
+/* ===== PALABRAS CLAVE ===== */
+const loveWords = ["te amo", "te amoo", "t amo", "amo", "love you"];
+const morningWords = ["buenos días", "buen dia", "buenos dias", "good morning"];
+const foodWords = ["ya comiste", "ya almorzaste", "con cuidado", "me avisas cuando llegues", "ten cuidado"];
+const extraWords = ["te extraño", "amor", "bebé", "bebe", "niñita", "niñito", "pastelito", "cielo", "corazón"];
+const laughWords = ["jaja", "😂", "🤣", "jeje", "jiji", "xd", "jajaja", "hahaha"];
+const fightWords = ["nunca", "siempre", "mentira", "no", "😡", "😠", "😤", "🤬", "enojado"];
+
+/* ===== PREGUNTAS ===== */
+const questions = [
+  {q: "💖 ¿Quién dice más 'te amo' este año?", fn: () => count(loveWords), emoji: "💖"},
+  {q: "🌞 ¿Quién da más los buenos días?", fn: () => count(morningWords), emoji: "🌞"},
+  {q: "🍽️ ¿Quién se preocupa más por el otro?", fn: () => count(foodWords), emoji: "🍽️"},
+  {q: "😂 ¿Quién hace reír más?", fn: () => count(laughWords), emoji: "😂"},
+  {q: "⚡ ¿Quién inicia más discusiones?", fn: () => count(fightWords), emoji: "⚡"},
+  {q: "🥺 ¿Quién dice más 'te extraño'?", fn: () => count(["te extraño", "extraño"]), emoji: "🥺"},
+  {q: "💞 ¿Quién usa más apodos cariñosos?", fn: () => count(extraWords), emoji: "💞"},
+  {q: "💬 ¿Quién habla más este año?", fn: countMessages, emoji: "💬"},
+  {q: "📅 Día más intenso del 2025", fn: showIntenseDay, emoji: "📅"},
+  {q: "🏆 Resumen final del año", fn: conclusion, emoji: "🏆"}
+];
+
+// Inicializar partículas
+createParticles();
+
+// Actualizar barra de progreso
+function updateProgress() {
+  const progress = ((index) / questions.length) * 100;
+  document.getElementById('progress').style.width = `${progress}%`;
+}
+
+start();
+
+/* ===== PARTÍCULAS ===== */
+function createParticles() {
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 50; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    const size = Math.random() * 4 + 1;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.left = `${Math.random() * 100}%`;
+    particle.style.top = `${Math.random() * 100}%`;
+    particle.style.animationDelay = `${Math.random() * 5}s`;
+    particle.style.opacity = Math.random() * 0.3 + 0.1;
+    container.appendChild(particle);
+  }
+}
+
+/* ===== INICIO ===== */
+function start() {
+  document.getElementById("content").innerHTML = `
+    <div class="card">
+      <h2 style="text-align:center; margin-bottom:20px" class="emoji-pulse">✨ Sube tu chat de WhatsApp</h2>
+      
+      <div class="help-text">
+        💡 <b>Importante:</b> Asegúrate de exportar el chat <b>sin multimedia</b><br>
+        El formato debe incluir fechas (ej: 12/03/2025, 14:30 - Nombre: mensaje)
+      </div>
+      
+      <div class="file-input-wrapper" onclick="document.getElementById('fileInput').click()">
+        <div class="file-label">
+          <div style="font-size: 3rem;">📱</div>
+          <div>
+            <b>Haz clic para subir tu chat</b><br>
+            <small>Archivo .txt exportado de WhatsApp</small>
+          </div>
+        </div>
+        <input type="file" id="fileInput" accept=".txt" onchange="loadChat(event)">
+      </div>
+      
+      <div style="margin-top: 15px; font-size: 0.85rem; color: #94a3b8; text-align: center;">
+        Se analizarán solo los mensajes de 2025
+      </div>
+      
+      <button class="music-btn" onclick="toggleMusic()">
+        <span>🎶</span> <span id="musicText">Activar música</span>
+      </button>
+      
+      <div id="debugOutput" style="display: none;"></div>
+    </div>`;
+  updateProgress();
+}
+
+function toggleMusic() {
+  const m = document.getElementById("music");
+  const text = document.getElementById("musicText");
+  if (m.paused) {
+    m.play();
+    text.textContent = "Música activada";
+  } else {
+    m.pause();
+    text.textContent = "Activar música";
+  }
+}
+
+/* ===== PARSER MEJORADO PARA TU FORMATO EXACTO ===== */
+function parseWhatsAppChat(text) {
+  const lines = text.split('\n');
+  const messages = [];
+  
+  console.log("=== INICIANDO PARSER ===");
+  console.log("Total de líneas:", lines.length);
+  
+  // Patrones para diferentes formatos
+  const datePatterns = [
+    // Formato 1: 21/12/2025, 8:56 a. m. - Nombre: mensaje (con espacio especial)
+    /^(\d{1,2})\/(\d{1,2})\/(\d{4}), (\d{1,2}):(\d{2})\s*[  ]*([ap])\.\s*[  ]*m\.\s*-\s*(.*?):\s*(.*)/i,
+    
+    // Formato 2: 21/12/2025, 8:56 a.m. - Nombre: mensaje (con espacio normal)
+    /^(\d{1,2})\/(\d{1,2})\/(\d{4}), (\d{1,2}):(\d{2})\s+([ap])\.\s*m\.\s*-\s*(.*?):\s*(.*)/i,
+    
+    // Formato 3: 21/12/2025, 8:56 p. m. - Nombre: mensaje
+    /^(\d{1,2})\/(\d{1,2})\/(\d{4}), (\d{1,2}):(\d{2})\s*[  ]*([ap])\.\s*[  ]*m\.\s*-\s*(.*?):\s*(.*)/i,
+    
+    // Formato 4: 21/12/2025, 20:56 - Nombre: mensaje (24h)
+    /^(\d{1,2})\/(\d{1,2})\/(\d{4}), (\d{1,2}):(\d{2})\s*-\s*(.*?):\s*(.*)/,
+    
+    // Formato 5: 2025-12-21 20:56:00 - Nombre: mensaje
+    /^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{2}):?(\d{0,2})\s*-\s*(.*?):\s*(.*)/
+  ];
+  
+  let parsedCount = 0;
+  let skippedCount = 0;
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) continue;
+    
+    let match = null;
+    let patternIndex = -1;
+    
+    // Intentar todos los patrones
+    for (let j = 0; j < datePatterns.length; j++) {
+      match = line.match(datePatterns[j]);
+      if (match) {
+        patternIndex = j;
+        break;
+      }
+    }
+    
+    if (match) {
+      try {
+        let day, month, year, hour, minute, user, msg;
+        
+        switch(patternIndex) {
+          case 0: // Formato con espacio especial a.m./p.m.
+          case 1: // Formato normal a.m./p.m.
+          case 2: // Formato con espacio especial p.m.
+            [, day, month, year, hour, minute, ampm, user, msg] = match;
+            hour = parseInt(hour, 10);
+            minute = parseInt(minute, 10);
+            
+            // Convertir a formato 24h
+            if (ampm.toLowerCase() === 'p' && hour < 12) {
+              hour += 12;
+            } else if (ampm.toLowerCase() === 'a' && hour === 12) {
+              hour = 0;
+            }
+            break;
+            
+          case 3: // Formato 24h
+            [, day, month, year, hour, minute, user, msg] = match;
+            hour = parseInt(hour, 10);
+            minute = parseInt(minute, 10);
+            break;
+            
+          case 4: // Formato yyyy-mm-dd
+            [, year, month, day, hour, minute, , user, msg] = match;
+            hour = parseInt(hour, 10);
+            minute = parseInt(minute, 10);
+            break;
+        }
+        
+        const date = new Date(year, month - 1, day, hour, minute);
+        
+        if (!isNaN(date.getTime())) {
+          messages.push({
+            date: date,
+            user: user.trim(),
+            msg: msg.toLowerCase(),
+            dayKey: `${day}/${month}/${year}`,
+            lineNumber: i + 1,
+            patternUsed: patternIndex
+          });
+          parsedCount++;
+        } else {
+          console.log("Fecha inválida en línea", i + 1, line);
+          skippedCount++;
+        }
+      } catch (e) {
+        console.log("Error parsing línea", i + 1, ":", line, "Error:", e);
+        skippedCount++;
+      }
+    } else if (messages.length > 0) {
+      // Si no coincide con patrón de fecha, podría ser continuación del mensaje anterior
+      const lastMsg = messages[messages.length - 1];
+      lastMsg.msg += ' ' + line.toLowerCase();
+    } else {
+      // Línea que no pudo ser parseada y no es continuación
+      console.log("No se pudo parsear línea", i + 1, ":", line.substring(0, 50) + "...");
+      skippedCount++;
+    }
+  }
+  
+  console.log("=== RESUMEN PARSER ===");
+  console.log("Total líneas procesadas:", lines.length);
+  console.log("Mensajes parseados:", parsedCount);
+  console.log("Líneas saltadas:", skippedCount);
+  console.log("Primeros 3 mensajes:", messages.slice(0, 3));
+  
+  return messages;
+}
+
+/* ===== CARGA Y FILTRADO 2025 ===== */
+function loadChat(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  
+  const reader = new FileReader();
+  reader.onload = () => {
+    // Mostrar loading
+    document.getElementById('content').innerHTML = `
+      <div class="card">
+        <div style="text-align:center; padding:30px;">
+          <div style="font-size:3rem; margin-bottom:20px; animation: pulse 1s infinite">⏳</div>
+          <h3>Analizando tu chat...</h3>
+          <p style="color:#94a3b8; margin-top:10px;">
+            Esto puede tomar unos segundos
+          </p>
+          <div style="margin-top:20px; font-size:0.9rem; color:#94a3b8;">
+            <div id="progressText">Leyendo archivo...</div>
+          </div>
+        </div>
+      </div>`;
+    
+    setTimeout(() => {
+      try {
+        document.getElementById('progressText').textContent = "Parseando mensajes...";
+        
+        messages = parseWhatsAppChat(reader.result);
+        
+        if (messages.length === 0) {
+          showParseError(reader.result.substring(0, 500));
+          return;
+        }
+        
+        document.getElementById('progressText').textContent = "Filtrando por año 2025...";
+        
+        // Filtrar solo mensajes del 2025
+        const messages2025 = messages.filter(m => m.date.getFullYear() === 2025);
+        totalMessages2025 = messages2025.length;
+        
+        console.log("=== FILTRADO POR AÑO ===");
+        console.log("Mensajes totales parseados:", messages.length);
+        console.log("Mensajes de 2025:", messages2025.length);
+        
+        // Mostrar años encontrados
+        const yearsFound = {};
+        messages.forEach(m => {
+          const year = m.date.getFullYear();
+          yearsFound[year] = (yearsFound[year] || 0) + 1;
+        });
+        console.log("Distribución por años:", yearsFound);
+        
+        if (messages2025.length === 0) {
+          showNo2025Messages(yearsFound);
+          return;
+        }
+        
+        messages = messages2025;
+        
+        document.getElementById('progressText').textContent = "Detectando usuarios...";
+        detectarUsuarios();
+        
+        document.getElementById('progressText').textContent = "Buscando día más intenso...";
+        detectarDiaIntenso();
+        
+        document.getElementById('progressText').textContent = "Listo!";
+        
+        setTimeout(() => {
+          showQuestion();
+        }, 500);
+        
+      } catch (error) {
+        console.error("Error:", error);
+        showParseError(error.toString());
+      }
+    }, 100);
+  };
+  
+  reader.onerror = (error) => {
+    console.error("Error reading file:", error);
+    showParseError("Error al leer el archivo");
+  };
+  
+  reader.readAsText(file);
+}
+
+/* ===== MOSTRAR ERROR DE PARSING ===== */
+function showParseError(details) {
+  let debugInfo = '';
+  if (details) {
+    debugInfo = `
+      <div class="debug-info">
+        <b>Información de depuración:</b>
+        <pre>${JSON.stringify(details, null, 2)}</pre>
+      </div>`;
+  }
+  
+  document.getElementById('content').innerHTML = `
+    <div class="card">
+      <div style="text-align:center; padding:20px;">
+        <div style="font-size:4rem; margin-bottom:20px;">⚠️</div>
+        <h3>No se pudieron leer los mensajes</h3>
+        
+        <div class="help-text" style="text-align:left; margin:20px 0;">
+          <b>Posibles soluciones:</b><br><br>
+          1. <b>Exporta correctamente desde WhatsApp:</b><br>
+          • Abre el chat<br>
+          • Toca los 3 puntos (⋮)<br>
+          • Más → Exportar chat<br>
+          • Selecciona <b>SIN multimedia</b><br><br>
+          
+          2. <b>Verifica que el formato sea como este:</b><br>
+          <code style="background:#2a3942; padding:5px 10px; border-radius:5px; display:block; margin:5px 0; font-size:0.8rem;">
+          21/12/2025, 8:56 a. m. - Nombre: mensaje
+          </code><br>
+          
+          3. <b>Si usas iPhone, el formato puede ser:</b><br>
+          <code style="background:#2a3942; padding:5px 10px; border-radius:5px; display:block; margin:5px 0; font-size:0.8rem;">
+          [21/12/2025, 8:56:00] Nombre: mensaje
+          </code>
+        </div>
+        
+        ${debugInfo}
+        
+        <button onclick="location.reload()" style="margin-top:20px;">Intentar de nuevo 🔄</button>
+        
+        <div style="margin-top:20px; font-size:0.8rem; color:#94a3b8;">
+          💡 <b>Consejo:</b> Abre la consola (F12) para ver más detalles del error
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ===== MOSTRAR NO HAY MENSAJES 2025 ===== */
+function showNo2025Messages(yearsFound) {
+  const availableYears = Object.keys(yearsFound).sort((a, b) => b - a);
+  
+  let yearsList = '';
+  availableYears.forEach(year => {
+    yearsList += `<div style="margin:5px 0;">
+      <span style="color:#25d366">${year}:</span> 
+      <span>${yearsFound[year]} mensajes</span>
+    </div>`;
+  });
+  
+  document.getElementById('content').innerHTML = `
+    <div class="card">
+      <div style="text-align:center; padding:20px;">
+        <div style="font-size:4rem; margin-bottom:20px;">📅</div>
+        <h3>No hay mensajes del 2025 en este chat</h3>
+        
+        <div class="help-text" style="margin:20px 0;">
+          <b>Se encontraron mensajes de estos años:</b><br>
+          ${yearsList || "No se encontraron mensajes con fecha válida"}
+        </div>
+        
+        <div style="margin:20px 0; padding:15px; background:rgba(255,193,7,0.1); border-radius:10px;">
+          💡 <b>Sugerencias:</b><br>
+          1. Exporta un chat más reciente (de 2025)<br>
+          2. Verifica que las fechas en el chat sean correctas<br>
+          3. Si quieres analizar otro año, modifica el código
+        </div>
+        
+        <button onclick="location.reload()">Subir otro chat 🔄</button>
+        
+        <div style="margin-top:20px; font-size:0.8rem; color:#94a3b8;">
+          Total de mensajes encontrados: ${Object.values(yearsFound).reduce((a, b) => a + b, 0)}
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ===== DETECTAR DÍA MÁS INTENSO ===== */
+function detectarDiaIntenso() {
+  const dayStats = {};
+  
+  messages.forEach(m => {
+    const dayStr = m.dayKey;
+    if (!dayStats[dayStr]) {
+      dayStats[dayStr] = {
+        date: m.date,
+        user1Count: 0,
+        user2Count: 0,
+        total: 0
+      };
+    }
+    
+    if (m.user === USER1) dayStats[dayStr].user1Count++;
+    if (m.user === USER2) dayStats[dayStr].user2Count++;
+    dayStats[dayStr].total++;
+  });
+  
+  // Encontrar el día con más mensajes
+  let maxMessages = 0;
+  for (const dayKey in dayStats) {
+    if (dayStats[dayKey].total > maxMessages) {
+      maxMessages = dayStats[dayKey].total;
+      intenseDay = {
+        date: dayStats[dayKey].date,
+        dayKey: dayKey,
+        user1Count: dayStats[dayKey].user1Count,
+        user2Count: dayStats[dayKey].user2Count,
+        total: dayStats[dayKey].total
+      };
+    }
+  }
+  
+  console.log("Día más intenso:", intenseDay);
+}
+
+/* ===== MOSTRAR DÍA INTENSO ===== */
+function showIntenseDay() {
+  if (!intenseDay) return "No hay datos suficientes para determinar el día más intenso.";
+  
+  const date = intenseDay.date;
+  const dayName = date.toLocaleDateString('es-ES', { 
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long'
+  });
+  
+  return `
+    <div class="intense-day">
+      <div class="intense-day-header">
+        <span>🔥</span>
+        <span>${dayName.charAt(0).toUpperCase() + dayName.slice(1)}</span>
+      </div>
+      <div style="text-align:center; font-size:0.9rem; color:#94a3b8">
+        ¡El día que más se hablaron este año!
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-value">${intenseDay.total}</span>
+          <span class="stat-label">Mensajes totales</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">${Math.round(intenseDay.total / 24)}/h</span>
+          <span class="stat-label">Promedio por hora</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" style="color:#25d366">${intenseDay.user1Count}</span>
+          <span class="stat-label">${USER1}</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" style="color:#ff4081">${intenseDay.user2Count}</span>
+          <span class="stat-label">${USER2}</span>
+        </div>
+      </div>
+      
+      <div style="margin-top:15px; padding:10px; background:rgba(255,255,255,0.02); border-radius:10px;">
+        <small style="color:#94a3b8">
+          💡 En ese día tuvieron una conversación muy activa, 
+          demostrando lo mucho que tienen para compartir
+        </small>
+      </div>
+    </div>`;
+}
+
+/* ===== DETECTAR USUARIOS ===== */
+function detectarUsuarios() {
+  const counts = {};
+  messages.forEach(m => counts[m.user] = (counts[m.user] || 0) + 1);
+  const users = Object.keys(counts);
+  
+  console.log("=== DETECCIÓN DE USUARIOS ===");
+  console.log("Usuarios encontrados:", users);
+  console.log("Conteo por usuario:", counts);
+  
+  if (users.length >= 2) {
+    USER1 = users[0];
+    USER2 = users[1];
+    
+    // Determinar quién habla más para ponerlo primero
+    if (counts[USER2] > counts[USER1]) {
+      [USER1, USER2] = [USER2, USER1];
+      winner = USER1;
+    } else {
+      winner = USER1;
+    }
+  } else if (users.length === 1) {
+    USER1 = users[0];
+    USER2 = "Persona 2";
+    winner = USER1;
+  } else {
+    USER1 = "Persona 1";
+    USER2 = "Persona 2";
+  }
+  
+  console.log("USER1 (izquierda/ganador):", USER1);
+  console.log("USER2 (derecha):", USER2);
+  console.log("Ganador general:", winner);
+}
+
+/* ===== CONTADORES ===== */
+function count(words) {
+  let counts = {[USER1]: 0, [USER2]: 0};
+  messages.forEach(m => {
+    if (!words.some(w => m.msg.includes(w))) return;
+    if (m.user === USER1) counts[USER1]++;
+    if (m.user === USER2) counts[USER2]++;
+  });
+  return format(counts);
+}
+
+function countMessages() {
+  let counts = {[USER1]: 0, [USER2]: 0};
+  messages.forEach(m => {
+    if (m.user === USER1) counts[USER1]++;
+    if (m.user === USER2) counts[USER2]++;
+  });
+  return format(counts);
+}
+
+/* ===== CONCLUSIÓN ESPECIAL ===== */
+function conclusion() {
+  createConfetti();
+  
+  const totalMessages = messages.length;
+  const user1Total = messages.filter(m => m.user === USER1).length;
+  const user2Total = messages.filter(m => m.user === USER2).length;
+  const user1Percent = Math.round((user1Total / totalMessages) * 100);
+  const user2Percent = Math.round((user2Total / totalMessages) * 100);
+  
+  return `
+    <div style="text-align:center; padding:20px;">
+      <div style="font-size:4rem; margin-bottom:20px;">🎉</div>
+      <div style="font-size:1.2rem; line-height:1.6; margin-bottom:20px;">
+        <b>✨ Love Wrapped 2025 Completo ✨</b><br>
+        <div style="font-size:0.9rem; color:#94a3b8; margin:10px 0;">
+          Resumen del año de amor
+        </div>
+      </div>
+      
+      <div style="background:rgba(255,255,255,0.03); border-radius:15px; padding:15px; margin:15px 0;">
+        <div style="font-size:0.9rem; color:#94a3b8;">Total de mensajes en 2025</div>
+        <div style="font-size:2rem; font-weight:bold; color:#25d366">${totalMessages.toLocaleString()}</div>
+      </div>
+      
+      <div style="display:flex; justify-content:space-around; margin:20px 0;">
+        <div>
+          <div style="font-size:1.5rem; color:#25d366">${user1Percent}%</div>
+          <div style="font-size:0.8rem; color:#94a3b8">${USER1}</div>
+        </div>
+        <div>
+          <div style="font-size:1.5rem; color:#ff4081">${user2Percent}%</div>
+          <div style="font-size:0.8rem; color:#94a3b8">${USER2}</div>
+        </div>
+      </div>
+      
+      <div style="margin:20px 0; padding:15px; background:rgba(37,211,102,0.1); border-radius:15px;">
+        <div style="color:#25d366; font-weight:bold; margin-bottom:10px;">
+          🌟 ${winner === USER1 ? USER1 : USER2} lideró la comunicación este año
+        </div>
+        <div style="font-size:0.9rem; color:#94a3b8">
+          💞 Al final, los números no importan.
+Importa que se eligieron todos los días,
+que se dijeron lo que sentían
+y que este chat es prueba de un amor real.
+        </div>
+      </div>
+      
+      <div style="font-size:0.9rem; line-height:1.6; color:#94a3b8; margin-top:20px;">
+        <i>"Este año dejaron ${totalMessages.toLocaleString()} huellas digitales de amor, 
+        pero infinitas más en el corazón."</i>
+      </div>
+    </div>`;
+}
+
+/* ===== FORMATO CON GRÁFICO - GANADOR SIEMPRE A LA IZQUIERDA ===== */
+function format(o) {
+  const a = o[USER1] || 0;
+  const b = o[USER2] || 0;
+  const total = a + b;
+  
+  // Determinar ganador de esta categoría
+  const categoryWinner = a >= b ? USER1 : USER2;
+  const winnerScore = a >= b ? a : b;
+  const loserScore = a >= b ? b : a;
+  const loserName = categoryWinner === USER1 ? USER2 : USER1;
+  
+  setTimeout(() => {
+    const bars = document.querySelectorAll('.bar');
+    if (bars[0]) {
+      bars[0].style.height = total ? `${(winnerScore / total) * 100}%` : '0%';
+    }
+    if (bars[1]) {
+      bars[1].style.height = total ? `${(loserScore / total) * 100}%` : '0%';
+    }
+  }, 100);
+  
+  let result = `
+    <div class="result-graph">
+      <div class="user-bar">
+        <div class="bar-container">
+          <div class="bar winner" style="height:0%"></div>
+        </div>
+        <div class="winner-badge">🥇</div>
+        <b>${categoryWinner}</b><br>
+        <span style="color:#25d366">${winnerScore}</span>
+      </div>
+      <div class="user-bar">
+        <div class="bar-container">
+          <div class="bar loser" style="height:0%"></div>
+        </div>
+        <b>${loserName}</b><br>
+        <span style="color:#ff4081">${loserScore}</span>
+      </div>
+    </div>`;
+  
+  if (a === b) {
+    result += `<div style="text-align:center; margin-top:20px; color:#25d366">💕 ¡Empate perfecto! El amor es 50/50</div>`;
+  } else {
+    const percent = total ? Math.round((Math.max(a, b) / total) * 100) : 0;
+    result += `<div style="text-align:center; margin-top:20px; color:#94a3b8">
+      ${categoryWinner} lidera con el ${percent}%<br>
+      <small>💖 En el amor de verdad, ambos ganan</small>
+    </div>`;
+  }
+  
+  return result;
+}
+
+/* ===== CONFETI ===== */
+function createConfetti() {
+  const colors = ['#25d366', '#ff4081', '#00ff88', '#ff79a9', '#ffffff'];
+  for (let i = 0; i < 100; i++) {
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+    confetti.style.left = `${Math.random() * 100}%`;
+    confetti.style.top = `${Math.random() * 100}%`;
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.width = `${Math.random() * 10 + 5}px`;
+    confetti.style.height = `${Math.random() * 10 + 5}px`;
+    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+    
+    document.body.appendChild(confetti);
+    
+    confetti.animate([
+      { opacity: 1, transform: 'translateY(-100vh) rotate(0deg)' },
+      { opacity: 1, transform: `translateY(100vh) rotate(${Math.random() * 720}deg)` }
+    ], {
+      duration: Math.random() * 3000 + 2000,
+      easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+    }).onfinish = () => confetti.remove();
+  }
+}
+
+/* ===== FLUJO ===== */
+function showQuestion() {
+  if (index >= questions.length) return;
+  updateProgress();
+  
+  content.innerHTML = `
+    <div class="card">
+      <div class="question">
+        <span class="emoji-float">${questions[index].emoji}</span><br>
+        ${questions[index].q}
+      </div>
+      <button onclick="answer()">Ver resultado ✨</button>
+      <button class="secondary" onclick="next()">Saltar ➡️</button>
+    </div>`;
+}
+
+function answer() {
+  updateProgress();
+  content.innerHTML = `
+    <div class="card">
+      <div class="question">${questions[index].q}</div>
+      <div class="answer">${questions[index].fn()}</div>
+      <button onclick="next()">${index === questions.length - 1 ? 'Ver resumen final 🏆' : 'Siguiente ➡️'}</button>
+    </div>`;
+}
+
+function next() { 
+  index++; 
+  if (index >= questions.length) {
+    // Final
+    content.innerHTML = `
+      <div class="card">
+        <div style="text-align:center; padding:30px;">
+          <div style="font-size:4rem;">❤️</div>
+          <h2>¡Love Wrapped 2025 Completo!</h2>
+          <p style="margin:20px 0; color:#94a3b8">
+            Analizaste ${totalMessages2025.toLocaleString()} mensajes de 2025
+          </p>
+          <button onclick="location.reload()">Hacer Otro Año 🔄</button>
+          <button class="secondary" onclick="shareResults()">Compartir Resultados 📤</button>
+        </div>
+      </div>`;
+  } else {
+    showQuestion(); 
+  }
+}
+
+function shareResults() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'Mi Love Wrapped 2025',
+      text: `¡Mira mi resumen de amor de 2025! ${USER1} y ${USER2} tuvieron un año increíble con ${totalMessages2025} mensajes 💖`,
+      url: window.location.href
+    });
+  } else {
+    const shareText = `💚 Mi Love Wrapped 2025\n\n${USER1} y ${USER2}\n${totalMessages2025} mensajes este año\n\nEl amor no se mide, se vive 💖`;
+    navigator.clipboard.writeText(shareText);
+    alert('✅ Resultados copiados al portapapeles\n\nPuedes pegarlos en WhatsApp o Instagram');
+  }
+}
+</script>
+</body>
+</html>
