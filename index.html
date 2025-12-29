@@ -1,3 +1,4 @@
+//el final//
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,6 +7,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255,255,255,0.2);
+  border-top: 5px solid #25d366;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite; /* MÁS RÁPIDO */
+  margin: 30px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
 /* Todos los estilos anteriores se mantienen igual */
 * {
   margin: 0;
@@ -81,6 +99,11 @@ body {
   perspective: 1000px;
   transition: all 0.3s ease;
 }
+
+.card.spin {
+  animation: spinReveal 2s ease-in-out;
+}
+
 
 .card:hover {
   transform: translateY(-5px) rotateX(2deg);
@@ -249,6 +272,16 @@ button.secondary:hover {
   0% { background-position: -100px; }
   100% { background-position: 200px; }
 }
+
+@keyframes spinReveal {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
 
 .emoji-float {
   font-size: 2rem;
@@ -463,50 +496,6 @@ button.secondary:hover {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
-
-/* Formato selector */
-.format-selector {
-  margin: 15px 0;
-}
-
-.format-options {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.format-option {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.format-option:hover {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.format-option input[type="radio"] {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-}
-
-.format-label {
-  font-size: 0.9rem;
-}
-
-.format-example {
-  font-size: 0.75rem;
-  color: #94a3b8;
-  font-family: monospace;
-  margin-top: 3px;
-}
 </style>
 </head>
 
@@ -539,7 +528,6 @@ let USER1 = "", USER2 = "";
 let winner = null;
 let intenseDay = null;
 let totalMessages2025 = 0;
-let selectedFormat = 'auto';
 
 /* ===== PALABRAS CLAVE ===== */
 const loveWords = ["te amo", "te amoo", "t amo", "amo", "love you"];
@@ -613,33 +601,8 @@ function start() {
         <input type="file" id="fileInput" accept=".txt" onchange="loadChat(event)">
       </div>
       
-      <div class="format-selector">
-        <div style="font-size:0.9rem; margin-bottom:10px; color:#94a3b8">
-          ⚙️ <b>Selecciona el formato de tu chat:</b>
-        </div>
-        <div class="format-options">
-          <label class="format-option">
-            <input type="radio" name="format" value="auto" checked onchange="updateFormat(this.value)">
-            <div>
-              <div class="format-label">🔍 Detección automática</div>
-              <div class="format-example">(Recomendado)</div>
-            </div>
-          </label>
-          <label class="format-option">
-            <input type="radio" name="format" value="iphone" onchange="updateFormat(this.value)">
-            <div>
-              <div class="format-label">🍎 Formato iPhone</div>
-              <div class="format-example">[21/12/2025, 8:56:00] Nombre: mensaje</div>
-            </div>
-          </label>
-          <label class="format-option">
-            <input type="radio" name="format" value="android" onchange="updateFormat(this.value)">
-            <div>
-              <div class="format-label">🤖 Formato Android</div>
-              <div class="format-example">21/12/2025, 8:56 a. m. - Nombre: mensaje</div>
-            </div>
-          </label>
-        </div>
+      <div style="margin-top: 15px; font-size: 0.85rem; color: #94a3b8; text-align: center;">
+        Se analizarán solo los mensajes de 2025
       </div>
       
       <button class="music-btn" onclick="toggleMusic()">
@@ -649,11 +612,6 @@ function start() {
       <div id="debugOutput" style="display: none;"></div>
     </div>`;
   updateProgress();
-}
-
-function updateFormat(format) {
-  selectedFormat = format;
-  console.log("Formato seleccionado:", format);
 }
 
 function toggleMusic() {
@@ -668,201 +626,136 @@ function toggleMusic() {
   }
 }
 
-/* ===== PARSER UNIVERSAL PARA WHATSAPP ===== */
+/* ===== PARSER MEJORADO PARA TU FORMATO EXACTO ===== */
 function parseWhatsAppChat(text) {
   const lines = text.split('\n');
   const messages = [];
   
-  console.log("=== INICIANDO PARSER UNIVERSAL ===");
+  console.log("=== INICIANDO PARSER ===");
   console.log("Total de líneas:", lines.length);
   
-  let currentMessage = null;
-  let messageBuffer = "";
-  let formatUsed = selectedFormat === 'auto' ? detectFormat(lines) : selectedFormat;
+  // Patrones para diferentes formatos
+  const datePatterns = [
+// 📱 iPhone WhatsApp formato con corchetes, segundos y año corto
+/^\[(\d{1,2})\/(\d{1,2})\/(\d{2,4}), (\d{1,2}):(\d{2}):(\d{2})\s*[  ]*([ap])\.\s*[  ]*m\.\]\s*(.*?):\s*(.*)/i,
+
+    // Formato 1: 21/12/2025, 8:56 a. m. - Nombre: mensaje (con espacio especial)
+    /^(\d{1,2})\/(\d{1,2})\/(\d{4}), (\d{1,2}):(\d{2})\s*[  ]*([ap])\.\s*[  ]*m\.\s*-\s*(.*?):\s*(.*)/i,
+    
+    // Formato 2: 21/12/2025, 8:56 a.m. - Nombre: mensaje (con espacio normal)
+    /^(\d{1,2})\/(\d{1,2})\/(\d{4}), (\d{1,2}):(\d{2})\s+([ap])\.\s*m\.\s*-\s*(.*?):\s*(.*)/i,
+    
+    // Formato 3: 21/12/2025, 8:56 p. m. - Nombre: mensaje
+    /^(\d{1,2})\/(\d{1,2})\/(\d{4}), (\d{1,2}):(\d{2})\s*[  ]*([ap])\.\s*[  ]*m\.\s*-\s*(.*?):\s*(.*)/i,
+    
+    // Formato 4: 21/12/2025, 20:56 - Nombre: mensaje (24h)
+    /^(\d{1,2})\/(\d{1,2})\/(\d{4}), (\d{1,2}):(\d{2})\s*-\s*(.*?):\s*(.*)/,
+    
+    // Formato 5: 2025-12-21 20:56:00 - Nombre: mensaje
+    /^(\d{4})-(\d{1,2})-(\d{1,2}) (\d{1,2}):(\d{2}):?(\d{0,2})\s*-\s*(.*?):\s*(.*)/
+  ];
   
-  console.log("Formato a usar:", formatUsed);
+  let parsedCount = 0;
+  let skippedCount = 0;
   
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
     if (!line) continue;
     
-    let parsed = false;
+    let match = null;
+    let patternIndex = -1;
     
-    // Intentar parsear según el formato
-    switch(formatUsed) {
-      case 'iphone':
-        parsed = parseIphoneFormat(line, i);
+    // Intentar todos los patrones
+    for (let j = 0; j < datePatterns.length; j++) {
+      match = line.match(datePatterns[j]);
+      if (match) {
+        patternIndex = j;
         break;
-      case 'android':
-        parsed = parseAndroidFormat(line, i);
-        break;
-      default:
-        // Intentar todos los formatos
-        parsed = parseIphoneFormat(line, i) || 
-                 parseAndroidFormat(line, i);
-        break;
-    }
-    
-    // Si no se pudo parsear como nuevo mensaje, podría ser continuación
-    if (!parsed && currentMessage) {
-      currentMessage.msg += ' ' + line.toLowerCase();
-    }
-  }
-  
-  console.log("=== RESUMEN PARSER ===");
-  console.log("Mensajes parseados:", messages.length);
-  if (messages.length > 0) {
-    console.log("Primer mensaje:", messages[0]);
-    console.log("Último mensaje:", messages[messages.length - 1]);
-  }
-  
-  // Función auxiliar para iPhone
-  function parseIphoneFormat(line, lineNum) {
-    // Formato iPhone: [21/12/2025, 8:56:00] Nombre: mensaje
-    // También: [21/12/2025 8:56:00] Nombre: mensaje
-    const iphoneRegex = /^\[(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{4}),?\s+(\d{1,2}):(\d{2}):(\d{2})\]\s+(.*?):\s+(.*)$/;
-    const match = line.match(iphoneRegex);
-    
-    if (match) {
-      try {
-        const [, day, month, year, hour, minute, second, user, msg] = match;
-        const date = new Date(year, month - 1, day, hour, minute, second);
-        
-        if (isNaN(date.getTime())) {
-          console.log("Fecha inválida en línea", lineNum + 1, ":", line.substring(0, 50));
-          return false;
-        }
-        
-        messages.push({
-          date: date,
-          user: user.trim(),
-          msg: msg.toLowerCase(),
-          dayKey: `${day}/${month}/${year}`,
-          lineNumber: lineNum + 1,
-          format: 'iphone'
-        });
-        
-        currentMessage = messages[messages.length - 1];
-        return true;
-      } catch (e) {
-        console.log("Error parsing iPhone format línea", lineNum + 1, ":", e);
       }
     }
-    return false;
-  }
-  
-  // Función auxiliar para Android
-  function parseAndroidFormat(line, lineNum) {
-    // Formato Android 1: 21/12/2025, 8:56 a. m. - Nombre: mensaje
-    const androidRegex1 = /^(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{4}),?\s+(\d{1,2}):(\d{2})\s*([ap])\.?\s*m\.?\s*-\s*(.*?):\s+(.*)$/i;
-    
-    // Formato Android 2: 21/12/2025, 8:56 - Nombre: mensaje (24h)
-    const androidRegex2 = /^(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{4}),?\s+(\d{1,2}):(\d{2})\s*-\s*(.*?):\s+(.*)$/;
-    
-    // Formato Android 3: 21/12/25, 8:56 a.m. - Nombre: mensaje (año corto)
-    const androidRegex3 = /^(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{2}),?\s+(\d{1,2}):(\d{2})\s*([ap])\.?\s*m\.?\s*-\s*(.*?):\s+(.*)$/i;
-    
-    let match = line.match(androidRegex1) || line.match(androidRegex2) || line.match(androidRegex3);
     
     if (match) {
       try {
-        let day, month, year, hour, minute, ampm, user, msg;
+        let day, month, year, hour, minute, user, msg;
         
-        if (match.length === 9 && match[6] && /[ap]/i.test(match[6])) {
-          // Formato con am/pm (año completo o corto)
-          [, day, month, yearStr, hour, minute, ampm, user, msg] = match;
-          hour = parseInt(hour, 10);
-          minute = parseInt(minute, 10);
-          
-          // Manejar año corto
-          const year = yearStr.length === 2 ? parseInt(yearStr, 10) + 2000 : parseInt(yearStr, 10);
-          
-          // Convertir a 24h
-          if (ampm.toLowerCase() === 'p' && hour < 12) {
-            hour += 12;
-          } else if (ampm.toLowerCase() === 'a' && hour === 12) {
-            hour = 0;
-          }
-          
-          const date = new Date(year, month - 1, day, hour, minute);
-          
-          if (isNaN(date.getTime())) {
-            console.log("Fecha inválida en línea", lineNum + 1, ":", line.substring(0, 50));
-            return false;
-          }
-          
+        switch(patternIndex) {
+case 0: // iPhone con corchetes, segundos y año corto
+  [, day, month, year, hour, minute, second, ampm, user, msg] = match;
+
+  year = year.length === 2 ? '20' + year : year;
+
+  hour = parseInt(hour, 10);
+  minute = parseInt(minute, 10);
+
+  if (ampm.toLowerCase() === 'p' && hour < 12) hour += 12;
+  if (ampm.toLowerCase() === 'a' && hour === 12) hour = 0;
+  break;
+
+
+          case 0: // Formato con espacio especial a.m./p.m.
+          case 1: // Formato normal a.m./p.m.
+          case 2: // Formato con espacio especial p.m.
+            [, day, month, year, hour, minute, ampm, user, msg] = match;
+            hour = parseInt(hour, 10);
+            minute = parseInt(minute, 10);
+            
+            // Convertir a formato 24h
+            if (ampm.toLowerCase() === 'p' && hour < 12) {
+              hour += 12;
+            } else if (ampm.toLowerCase() === 'a' && hour === 12) {
+              hour = 0;
+            }
+            break;
+            
+          case 3: // Formato 24h
+            [, day, month, year, hour, minute, user, msg] = match;
+            hour = parseInt(hour, 10);
+            minute = parseInt(minute, 10);
+            break;
+            
+          case 4: // Formato yyyy-mm-dd
+            [, year, month, day, hour, minute, , user, msg] = match;
+            hour = parseInt(hour, 10);
+            minute = parseInt(minute, 10);
+            break;
+        }
+        
+        const date = new Date(year, month - 1, day, hour, minute);
+        
+        if (!isNaN(date.getTime())) {
           messages.push({
             date: date,
             user: user.trim(),
             msg: msg.toLowerCase(),
             dayKey: `${day}/${month}/${year}`,
-            lineNumber: lineNum + 1,
-            format: 'android'
+            lineNumber: i + 1,
+            patternUsed: patternIndex
           });
-          
-          currentMessage = messages[messages.length - 1];
-          return true;
-          
-        } else if (match.length === 8 || match.length === 9) {
-          // Formato 24h
-          if (match.length === 8) {
-            [, day, month, year, hour, minute, user, msg] = match;
-          } else {
-            [, day, month, year, hour, minute, , user, msg] = match;
-          }
-          
-          hour = parseInt(hour, 10);
-          minute = parseInt(minute, 10);
-          const yearInt = year.length === 2 ? parseInt(year, 10) + 2000 : parseInt(year, 10);
-          
-          const date = new Date(yearInt, month - 1, day, hour, minute);
-          
-          if (isNaN(date.getTime())) {
-            console.log("Fecha inválida en línea", lineNum + 1, ":", line.substring(0, 50));
-            return false;
-          }
-          
-          messages.push({
-            date: date,
-            user: user.trim(),
-            msg: msg.toLowerCase(),
-            dayKey: `${day}/${month}/${yearInt}`,
-            lineNumber: lineNum + 1,
-            format: 'android'
-          });
-          
-          currentMessage = messages[messages.length - 1];
-          return true;
+          parsedCount++;
+        } else {
+          console.log("Fecha inválida en línea", i + 1, line);
+          skippedCount++;
         }
       } catch (e) {
-        console.log("Error parsing Android format línea", lineNum + 1, ":", e);
+        console.log("Error parsing línea", i + 1, ":", line, "Error:", e);
+        skippedCount++;
       }
+    } else if (messages.length > 0) {
+      // Si no coincide con patrón de fecha, podría ser continuación del mensaje anterior
+      const lastMsg = messages[messages.length - 1];
+      lastMsg.msg += ' ' + line.toLowerCase();
+    } else {
+      // Línea que no pudo ser parseada y no es continuación
+      console.log("No se pudo parsear línea", i + 1, ":", line.substring(0, 50) + "...");
+      skippedCount++;
     }
-    return false;
   }
   
-  // Función para detectar formato automáticamente
-  function detectFormat(lines) {
-    // Buscar líneas con contenido para analizar
-    const sampleLines = lines.slice(0, 50).filter(line => line.trim().length > 20);
-    
-    for (let line of sampleLines) {
-      // iPhone format
-      if (line.match(/^\[\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{4}/)) {
-        return 'iphone';
-      }
-      // Android format with am/pm
-      if (line.match(/\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4}.*[ap]\.?\s*m\./i)) {
-        return 'android';
-      }
-      // Android format 24h
-      if (line.match(/\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{2,4}.*\d{1,2}:\d{2}.*-/)) {
-        return 'android';
-      }
-    }
-    
-    return 'android'; // Default
-  }
+  console.log("=== RESUMEN PARSER ===");
+  console.log("Total líneas procesadas:", lines.length);
+  console.log("Mensajes parseados:", parsedCount);
+  console.log("Líneas saltadas:", skippedCount);
+  console.log("Primeros 3 mensajes:", messages.slice(0, 3));
   
   return messages;
 }
@@ -885,23 +778,15 @@ function loadChat(e) {
           </p>
           <div style="margin-top:20px; font-size:0.9rem; color:#94a3b8;">
             <div id="progressText">Leyendo archivo...</div>
-            <div id="sampleLines" style="margin-top:10px; font-size:0.8rem; text-align:left; max-height:100px; overflow:auto; background:rgba(0,0,0,0.2); padding:10px; border-radius:5px;"></div>
           </div>
         </div>
       </div>`;
-    
-    // Mostrar primeras líneas para diagnóstico
-    const text = reader.result;
-    const lines = text.split('\n').slice(0, 10);
-    document.getElementById('sampleLines').innerHTML = 
-      `<b>Primeras líneas:</b><br>` + 
-      lines.map((line, i) => `${i+1}. ${line.substring(0, 80)}${line.length > 80 ? '...' : ''}`).join('<br>');
     
     setTimeout(() => {
       try {
         document.getElementById('progressText').textContent = "Parseando mensajes...";
         
-        messages = parseWhatsAppChat(text);
+        messages = parseWhatsAppChat(reader.result);
         
         if (messages.length === 0) {
           showParseError(reader.result.substring(0, 500));
@@ -939,7 +824,7 @@ function loadChat(e) {
         document.getElementById('progressText').textContent = "Buscando día más intenso...";
         detectarDiaIntenso();
         
-        document.getElementById('progressText').textContent = "¡Listo!";
+        document.getElementById('progressText').textContent = "Listo!";
         
         setTimeout(() => {
           showQuestion();
@@ -962,29 +847,12 @@ function loadChat(e) {
 
 /* ===== MOSTRAR ERROR DE PARSING ===== */
 function showParseError(details) {
-  const examples = `
-    <div style="display:grid; gap:10px; margin:15px 0;">
-      <div style="background:#2a3942; padding:10px; border-radius:5px; font-size:0.8rem;">
-        <b>🍎 iPhone:</b><br>
-        <code style="color:#25d366">[21/12/2025, 8:56:00] María: Hola amor</code>
-      </div>
-      <div style="background:#2a3942; padding:10px; border-radius:5px; font-size:0.8rem;">
-        <b>🤖 Android 12h:</b><br>
-        <code style="color:#25d366">21/12/2025, 8:56 a.m. - Juan: Buenos días</code>
-      </div>
-      <div style="background:#2a3942; padding:10px; border-radius:5px; font-size:0.8rem;">
-        <b>🤖 Android 24h:</b><br>
-        <code style="color:#25d366">21/12/2025, 20:56 - Ana: Te amo</code>
-      </div>
-    </div>
-  `;
-  
   let debugInfo = '';
-  if (details && typeof details === 'string') {
+  if (details) {
     debugInfo = `
       <div class="debug-info">
         <b>Información de depuración:</b>
-        <pre>${details.substring(0, 500)}${details.length > 500 ? '...' : ''}</pre>
+        <pre>${JSON.stringify(details, null, 2)}</pre>
       </div>`;
   }
   
@@ -996,23 +864,21 @@ function showParseError(details) {
         
         <div class="help-text" style="text-align:left; margin:20px 0;">
           <b>Posibles soluciones:</b><br><br>
-          1. <b>Selecciona el formato correcto arriba ⬆️</b><br>
-          • iPhone: [fecha] nombre: mensaje<br>
-          • Android: fecha - nombre: mensaje<br><br>
-          
-          2. <b>Exporta correctamente desde WhatsApp:</b><br>
+          1. <b>Exporta correctamente desde WhatsApp:</b><br>
           • Abre el chat<br>
           • Toca los 3 puntos (⋮)<br>
           • Más → Exportar chat<br>
           • Selecciona <b>SIN multimedia</b><br><br>
           
-          ${examples}
+          2. <b>Verifica que el formato sea como este:</b><br>
+          <code style="background:#2a3942; padding:5px 10px; border-radius:5px; display:block; margin:5px 0; font-size:0.8rem;">
+          21/12/2025, 8:56 a. m. - Nombre: mensaje
+          </code><br>
           
-          3. <b>Verifica que el chat tenga este formato:</b><br>
-          <div style="margin-top:10px; padding:10px; background:#1e293b; border-radius:5px;">
-            <b>Primeras líneas de tu archivo deben verse así:</b><br>
-            <div id="samplePreview" style="font-family:monospace; font-size:0.8rem; margin-top:5px;"></div>
-          </div>
+          3. <b>Si usas iPhone, el formato puede ser:</b><br>
+          <code style="background:#2a3942; padding:5px 10px; border-radius:5px; display:block; margin:5px 0; font-size:0.8rem;">
+          [21/12/2025, 8:56:00] Nombre: mensaje
+          </code>
         </div>
         
         ${debugInfo}
@@ -1020,7 +886,7 @@ function showParseError(details) {
         <button onclick="location.reload()" style="margin-top:20px;">Intentar de nuevo 🔄</button>
         
         <div style="margin-top:20px; font-size:0.8rem; color:#94a3b8;">
-          💡 <b>Consejo:</b> Abre la consola (F12 → Console) para ver más detalles del error
+          💡 <b>Consejo:</b> Abre la consola (F12) para ver más detalles del error
         </div>
       </div>
     </div>`;
@@ -1053,7 +919,7 @@ function showNo2025Messages(yearsFound) {
           💡 <b>Sugerencias:</b><br>
           1. Exporta un chat más reciente (de 2025)<br>
           2. Verifica que las fechas en el chat sean correctas<br>
-          3. Prueba con otro archivo de chat
+          3. Si quieres analizar otro año, modifica el código
         </div>
         
         <button onclick="location.reload()">Subir otro chat 🔄</button>
@@ -1359,12 +1225,30 @@ function showQuestion() {
 
 function answer() {
   updateProgress();
+
+  // Mostrar animación de carga
   content.innerHTML = `
     <div class="card">
       <div class="question">${questions[index].q}</div>
-      <div class="answer">${questions[index].fn()}</div>
-      <button onclick="next()">${index === questions.length - 1 ? 'Ver resumen final 🏆' : 'Siguiente ➡️'}</button>
-    </div>`;
+      <div class="spinner"></div>
+      <div style="text-align:center; color:#94a3b8">
+        Calculando resultados...
+      </div>
+    </div>
+  `;
+
+  // Esperar 2 segundos y mostrar resultado
+  setTimeout(() => {
+    content.innerHTML = `
+      <div class="card">
+        <div class="question">${questions[index].q}</div>
+        <div class="answer">${questions[index].fn()}</div>
+        <button onclick="next()">
+          ${index === questions.length - 1 ? 'Ver resumen final 🏆' : 'Siguiente ➡️'}
+        </button>
+      </div>
+    `;
+  }, 2000);
 }
 
 function next() { 
